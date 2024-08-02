@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const isAuthenticated = async (req, res, next) => {
+export const isAuthenticated = async (req, res, next) => {
     try {
         const token = req.cookies.token;
         if (!token) {
@@ -22,4 +22,19 @@ const isAuthenticated = async (req, res, next) => {
         console.log(error);
     }
 }
-export default isAuthenticated;
+export const isProtected = async (req, res, next) => {
+    try {
+        const token = req.cookies.token;
+        const decode = await jwt.verify(token, process.env.SECRET_KEY);
+        console.log(decode);
+        if (decode.role !== "recruiter") {
+            return res.status(403).json({
+                message: "Access denied",
+            })
+        }
+        next();
+
+    } catch (error) {
+        console.log("error in isProtected", error);
+    }
+}

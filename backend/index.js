@@ -9,6 +9,9 @@ dotenv.config({});
 //files
 import connnectDB from './utils/db.js';
 import UserRouter from './routes/user.route.js';
+import CompanyRouter from './routes/company.route.js';
+import JobRouter from './routes/job.route.js';
+import ApplicationRouter from './routes/application.route.js';
 
 const app = express();
 
@@ -22,7 +25,10 @@ app.use(
         credentials: true
     }));
 
-app.use("/api/v1/user", UserRouter)
+app.use("/api/v1/user", UserRouter);
+app.use("/api/v1/company", CompanyRouter);
+app.use("/api/v1/job", JobRouter);
+app.use("/api/v1/application", ApplicationRouter);
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {
