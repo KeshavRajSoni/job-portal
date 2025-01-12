@@ -18,4 +18,12 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
+  overrides: [
+    {
+      files: ['tailwind.config.js'], // Apply these rules only to the Tailwind config
+      env: {
+        node: true, // Set the Node.js environment for these files
+      },
+    },
+  ],
 }
